@@ -1,3 +1,4 @@
+﻿﻿
 ﻿public class Program
 {
     public static void Main()
@@ -6,23 +7,25 @@
         const int paper = 1;
         const int scissor = 2;
         const int invalid = -1;
+        const int spock = 3;
+        const int lizard = 4;
 
-        
-        
-        
+
+
+
         int seed = (int)DateTime.Now.Ticks;
         Random random = new Random();
         int draw = 0;
         int winning = 0;
         int losses = 0;
         int userMove;
-        
-        
+
+
         do
         {
-        Console.WriteLine("Choose [r]ock, [p]aper, [s]cissors, or [q]uit:");
+        Console.WriteLine("Choose [r]ock, [p]aper, [s]cissors, [sp]ock, [lz]ard or [q]uit:");
         string input = Console.ReadLine().ToLower();
-        
+
         if (input == "r" || input == "rock")
         {
             userMove = rock;
@@ -39,37 +42,46 @@
         {
             break;
         }
+        else if (input == "sp" || input == "spock")
+        {
+            userMove = spock;
+        }
+        else if (input == "lz" || input == "lizard")
+        {
+            userMove = lizard;
+        }
         else
         {
             Console.WriteLine("invalid");
             continue;
         }
-        int computermove = random.Next(0, 3);
+        int computermove = random.Next(0, 5);
 
         int result = 0;
         if (userMove == rock)
         {
-            if (computermove == paper)
+            if (computermove == paper || computermove == spock)
             {
                 result = 1;
             }
-            else if (computermove == scissor)
+            else if (computermove == scissor || computermove == lizard)
             {
                 result = invalid;
             }
+            
             else
             {
                 result = 0;
             }
-            
+
         }
         else if (userMove == paper)
         {
-            if (computermove == scissor)
+            if (computermove == scissor || computermove == lizard)
             {
                 result = 1;
             }
-            else if (computermove == paper)
+            else if (computermove == rock || computermove == spock)
             {
                 result = invalid;
             }
@@ -80,11 +92,11 @@
         }
         else if (userMove == scissor)
         {
-           if (computermove == rock)
+           if (computermove == rock || computermove == spock)
             {
                 result = 1;
             }
-            else if (computermove == paper)
+            else if (computermove == paper || computermove ==lizard)
             {
                 result = -1;
             }
@@ -92,6 +104,29 @@
             {
                 result = 0;
             } 
+        }
+        else if (userMove == spock)
+        {
+            if(computermove == paper || computermove == lizard)
+            {
+                result = 1;
+            }
+            else if (computermove == rock || computermove == scissor)
+            {
+                result = -1;
+            }
+
+        }
+        else if (userMove == lizard)
+        {
+            if (computermove == rock || computermove == scissor)
+            {
+                result = 1;
+            }
+            else if (computermove == spock || computermove == paper)
+            {
+                result = -1;
+            }
         }
 
         switch (result)
@@ -125,6 +160,13 @@
                 break;
             case scissor:
                 Console.Write("you choose scissor");
+
+                break;
+            case spock:
+                Console.Write("you choose spock ");
+                break;
+            case lizard:
+                Console.Write("you choose lizard ");
                 break;
 
         }
@@ -138,6 +180,12 @@
                 break;
             case scissor:
                 Console.WriteLine(" and computer choose scissor");
+                break;
+            case spock:
+                Console.WriteLine("and computer choose spock");
+                break;
+            case lizard:
+                Console.WriteLine("and computer choose lizard");
                 break;
 
         }
